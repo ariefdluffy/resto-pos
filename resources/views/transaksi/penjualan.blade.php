@@ -33,7 +33,6 @@ Resto PoS | Transaksi
                         <div class="panel-body">
                         {!! Form::open(['url' => action('TransaksiController@SimpanTransaksi'), 'method' => 'post', 'class'=>'form-horizontal']) !!}
                             <div class="col-sm-6">
-                            <!-- {!! Form::text('invoice', $tampil, ['class'=>'col-md-4 control-label']) !!} -->
                                     <div class="form-group">
                                     {!! Form::label('invoice', 'Invoice', ['class'=>'col-md-4 control-label']) !!}
                                         <div class="col-md-6">
@@ -107,8 +106,8 @@ Resto PoS | Transaksi
                                     </label>
                                     <div class="col-md-4">
                                         <div class="pull-left">
-                                            {!! Form::number('total', null, ['class'=>'form-control', 
-                                            'id' => 'total', 'readonly' => '']) !!}
+                                            {!! Form::text('total', null, ['class'=>'form-control autonumber', 
+                                            'id' => 'total', 'readonly' => '', 'data-a-sign' => 'Rp. ']) !!}
                                         </div>
                                     </div>
                                 </div>
@@ -132,8 +131,6 @@ Resto PoS | Transaksi
                     </div>
                 </div>
             </div>
-
-            {!! Form::open(['url' => action('TransaksiController@SimpanTransaksi'), 'method' => 'post', 'class'=>'form-horizontal']) !!}
             
             <div class="row">
                 <div class="col-sm-12">
@@ -187,12 +184,13 @@ Resto PoS | Transaksi
                     </div>
                 </div>
             </div>
-
+            
+            {!! Form::open(['url' => action('TransaksiController@ProsesTransaksi'), 'method' => 'put', 'class'=>'form-horizontal']) !!}
             <div class="row">
                 <div class="col-sm-12">
                    <div class="panel panel-border panel-custom">
                         <div class="panel-body">
-                            <div class="col-sm-4">
+                            {{--  <div class="col-sm-4">
                                 <div class="form-group{{ $errors->has('diskon_persen') ? ' has-error' : '' }}">
                                 {!! Form::label('diskon_persen', 'Diskon Persen', ['class'=>'col-md-6 control-label']) !!}
                                     <div class="col-md-6">
@@ -208,16 +206,18 @@ Resto PoS | Transaksi
                                         {!! $errors->first('diskon_rupiah', '<p class="help-block">:message</p>') !!}
                                     </div>
                                 </div>
-                            </div>
-
+                            </div>  --}}
+                            {!! Form::hidden('invoice', $tampil, ['class'=>'col-md-4 control-label']) !!}
+                            {!! Form::hidden('status', 'selesai', ['class'=>'col-md-4 control-label']) !!}
+                            {{--  {!! Form::hidden('id_transaksi', $showTable[0]->id_transaksi , ['class'=>'col-md-4 control-label']) !!}  --}}
                             <div class="col-sm-4">
-                                <div class="form-group{{ $errors->has('total_harga') ? ' has-error' : '' }}">
-                                {!! Form::label('total_harga', 'Total Harga', ['class'=>'col-md-4 control-label']) !!}
+                                <div class="form-group{{ $errors->has('jumlah_bayar') ? ' has-error' : '' }}">
+                                {!! Form::label('jumlah_bayar', 'Total Harga', ['class'=>'col-md-4 control-label']) !!}
                                     <div class="col-md-6">
                                     
-                                        {!! Form::number('total_harga', $total_bayar, ['class'=>'form-control', 'readonly' => '',
-                                        'id' => 'total_harga', 'name' => 'total_harga', 'onkeyup' => 'kembalian();']) !!}
-                                        {!! $errors->first('total_harga', '<p class="help-block">:message</p>') !!}
+                                        {!! Form::number('jumlah_bayar', $total_bayar, ['class'=>'form-control', 'readonly' => '',
+                                        'id' => 'jumlah_bayar', 'name' => 'jumlah_bayar', 'onkeyup' => 'kembalian();']) !!}
+                                        {!! $errors->first('jumlah_bayar', '<p class="help-block">:message</p>') !!}
                                   
                                     </div>
                                 </div>
@@ -234,10 +234,10 @@ Resto PoS | Transaksi
 
                             <div class="col-sm-4">
                                 <div class="form-group{{ $errors->has('kembali') ? ' has-error' : '' }}">
-                                {!! Form::label('kembali', 'Kembalian', ['class'=>'col-md-6 control-label']) !!}
+                                {!! Form::label('sisa', 'Kembalian', ['class'=>'col-md-6 control-label']) !!}
                                     <div class="col-md-6">
-                                        {!! Form::number('kembali', null, ['class'=>'form-control', 
-                                            'id' => 'kembali', 'readonly' => '']) !!}
+                                        {!! Form::number('sisa', null, ['class'=>'form-control', 'name' => 'sisa',
+                                            'id' => 'sisa', 'readonly' => '', 'required' => '']) !!}
                                     </div>
                                 </div>
                                 <label class="col-sm-6 control-label">&nbsp;
@@ -302,8 +302,11 @@ Resto PoS | Transaksi
 <script src="{{ asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js') }}"></script>
 <script src="{{ asset('assets/pages/jquery.sweet-alert.init.js') }}"></script>
 
-<script>
+{{--  autonumber  --}}
+{{--  <script src="{{ asset('assets/plugins/bootstrap-inputmask/bootstrap-inputmask.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/plugins/autoNumeric/autoNumeric.js') }}" type="text/javascript"></script>  --}}
 
+<script>
 function initDataTable() {
   $("#tbl-order").DataTable();
 }
@@ -318,11 +321,11 @@ function sum() {
 }
 
 function kembalian() {
-    var txtFirstNumberValue = document.getElementById('total_harga').value;
+    var txtFirstNumberValue = document.getElementById('jumlah_bayar').value;
     var txtSecondNumberValue = document.getElementById('jumlah_uang').value;
     var result = parseInt(txtSecondNumberValue) - parseInt(txtFirstNumberValue);
     if (!isNaN(result)) {
-        document.getElementById('kembali').value = result;
+        document.getElementById('sisa').value = result;
     }
 }
 
@@ -336,12 +339,18 @@ function showAlert(form) {
     confirmButtonText: "Ya, hapus!",
     cancelButtonText: "Batal",
     closeOnConfirm: false
-    },
+  },
     function(){
         form.submit();
     });
-    };
+};
 </script>
+
+{{--  <script type="text/javascript">
+    jQuery(function($) {
+        $('.autonumber').autoNumeric('init');    
+    });
+</script>  --}}
 
 
 @endsection

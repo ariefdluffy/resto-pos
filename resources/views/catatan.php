@@ -13,3 +13,10 @@
         {!! $errors->first('diskon_rupiah', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
+
+DB::table('transaksis')
+            ->where('transaksis.id_transaksi', $transaksi)
+            ->update([
+                'status' => 'selesai',
+                'jumlah_uang' => $request->jumlah_uang
+                ]);

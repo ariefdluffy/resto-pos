@@ -16,6 +16,8 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 Route::post('/register','Auth\RegisterController@regis');
 Route::post('/transaksi/subtotal', 'TransaksiController@SimpanTransaksi');
+Route::put('/transaksi/{id}', 'TransaksiController@ProsesTransaksi');
+Route::post('/transaksi/proses', 'TransaksiController@ProsesTransaksi');
 Route::resource('/produk','BarangController');
 Route::resource('/transaksi','TransaksiController');
 

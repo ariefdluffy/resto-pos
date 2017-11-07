@@ -44,7 +44,7 @@ class TransaksiController extends Controller
 
         $total_bayar = DB::table('transaksis_detail')
                             ->select('subtotal')->sum('subtotal');
-        // return $total_bayar;
+         //return $showTable[0]->id_transaksi;
         //dd($showTable->all());
 
         return view ('transaksi.penjualan', compact('barang','tampil', 'showTable','total_bayar'));
@@ -52,11 +52,10 @@ class TransaksiController extends Controller
 
     public function SimpanTransaksi(Request $request)
     {
-        // dd($request->all());
         $lastOrder = Transaksi::orderBy('invoice', 'desc')
-                ->where('status', '=','selesai')
+                ->where('status', '=','pending')
                 ->select('invoice')->first();
-            // return $lastOrder;
+        
             if ( ! $lastOrder )
                 $number = 0;
             else 
@@ -65,23 +64,9 @@ class TransaksiController extends Controller
 
             $invoice = 'INVO-' . sprintf('%04d', intval($number) + 1);
             $tampil = Form::getValueAttribute('invoice', $invoice);
-        //return $tampil;
+        
         if ($lastOrder == false){
-            $id = Transaksi::where('invoice', '=', $request->invoice)->get();
-            //return $id;
-            
-            $detail_trx = new TransaksiDetail();
-            $detail_trx->invoice = $id[0]->invoice;
-            $detail_trx->id_barang = $request->id_barang;
-            $detail_trx->qty_jual = $request->qty;
-            $detail_trx->id_satuan = '2';
-            $detail_trx->diskon_jual = '0';
-            $detail_trx->subtotal = $request->total;
-            $detail_trx->harga_jual = $request->harga_jual;
-            $detail_trx->save();
-
-        }else{
-
+            //return 'baru';
             $trx_pending = new Transaksi();
             $trx_pending->invoice = $request->invoice;
             $trx_pending->id_pelanggan = '1';
@@ -89,18 +74,32 @@ class TransaksiController extends Controller
             $trx_pending->diskon_rupiah = '0';
             $trx_pending->diskon_belanja = '0';
             $trx_pending->jumlah_bayar = '0';
-            $trx_pending->keterangan = $request->ket;
+            $trx_pending->jumlah_uang = '0';
+            $trx_pending->sisa = '0';
+            $trx_pending->keterangan = 'ket';
             $trx_pending->id_type_bayar = $request->id_tipe_bayar;
             $trx_pending->id_karyawan = $request->id_karyawan;
             $trx_pending->status = 'pending';
-            //dd($request->all());
-            //return $trx_pending;
             $trx_pending->save();
 
-            $id = Transaksi::where('invoice', '=', $request->invoice)->get();
+            //$id = Transaksi::where('invoice', '=', $request->invoice)->get();
 
             $detail_trx = new TransaksiDetail();
-            $detail_trx->invoice = $id[0]->invoice;
+            $detail_trx->invoice = $tampil;
+            $detail_trx->id_barang = $request->id_barang;
+            $detail_trx->qty_jual = $request->qty;
+            $detail_trx->id_satuan = '2';
+            $detail_trx->diskon_jual = '0';
+            $detail_trx->subtotal = $request->total;
+            $detail_trx->harga_jual = $request->harga_jual;
+            $detail_trx->save();
+            
+        }else{
+            //return 'lama';
+            //dd($request->all());
+            //return $trx_pending;
+            $detail_trx = new TransaksiDetail();
+            $detail_trx->invoice = $request->invoice;
             $detail_trx->id_barang = $request->id_barang;
             $detail_trx->qty_jual = $request->qty;
             $detail_trx->id_satuan = '2';
@@ -110,6 +109,26 @@ class TransaksiController extends Controller
             $detail_trx->save();
         }       
         // dd($request->all());
+        return redirect()->back();
+    }
+
+    public function ProsesTransaksi(Request $request, $id)
+    {
+        //dd($request->all());
+        $id_transaksi1 = DB::table('transaksis')
+                        ->select('id_transaksi', 'invoice')
+                        ->where('invoice','=', $request->invoice)->get();
+
+        //return $id_transaksi1[0]->id_transaksi;
+        $transaksi = Transaksi::find($id_transaksi1[0]->id_transaksi);
+        //$transaksi = Transaksi::find($request->invoice);
+        //return $transaksi;
+        $input = $request->input();
+        return $input;
+        
+        //$transaksi->update($request->all());
+        $transaksi->fill($input)->save();
+        //dd($request->all());
         return redirect()->back();
     }
 

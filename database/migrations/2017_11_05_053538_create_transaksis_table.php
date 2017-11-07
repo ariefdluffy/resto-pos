@@ -21,7 +21,9 @@ class CreateTransaksisTable extends Migration
             $table->integer('diskon_persen');
             $table->integer('diskon_rupiah');
             $table->integer('diskon_belanja');
-            $table->integer('jumlah_bayar');
+            $table->integer('jumlah_bayar')->nullable;
+            $table->integer('jumlah_uang')->nullable;
+            $table->integer('sisa')->nullable;
             $table->string('keterangan');
             $table->string('status');
             $table->integer('id_karyawan');
