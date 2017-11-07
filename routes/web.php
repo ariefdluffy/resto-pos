@@ -14,15 +14,14 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index');
-Route::get('user/edit', 'HomeController@editMember');
-Route::post('/user/simpan', 'HomeController@uploadMember');
-Route::put('/user/update', 'HomeController@updateMember');
 Route::post('/register','Auth\RegisterController@regis');
-Route::post('perusahaan/upload', 'PerusahaanController@uploadBerkas');
-Route::resource('/perusahaan','PerusahaanController');
-Route::resource('laporan', 'LaporanController');
-Route::post('laporan/terpilih', 'LaporanController@laporan_terpilih');
-Route::post('laporan/all', 'LaporanController@laporan_all');
+Route::post('/transaksi/subtotal', 'TransaksiController@SimpanTransaksi');
+Route::resource('/produk','BarangController');
+Route::resource('/transaksi','TransaksiController');
+
+// Route::resource('laporan', 'LaporanController');
+// Route::post('laporan/terpilih', 'LaporanController@laporan_terpilih');
+// Route::post('laporan/all', 'LaporanController@laporan_all');
 
 Route::get('send',  'TelegramController@getSendMessage');
 Route::post('send', 'TelegramController@postSendMessage');

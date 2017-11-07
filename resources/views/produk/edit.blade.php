@@ -23,62 +23,19 @@ Edit Data | Lapeling
             <div class="row">
                 <ul class="breadcrumb">
                     <li><a href="{{ url('/home') }}">Dashboard</a></li>
-                    <li><a href="{{ route('perusahaan.index') }}">Perusahaan</a></li>
+                    <li><a href="{{ route('produk.index') }}">Produk</a></li>
                     <li class="active">Edit Data</li>
                 </ul>
                 <div class="col-sm-6">
                     <div class="panel panel-border panel-custom">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Edit Data Perusahaan</h3>
+                            <h3 class="panel-title">Edit Data Produk</h3>
                         </div>
                         <div class="panel-body">
-                        {!! Form::model($perusahaan, ['url' => route('perusahaan.update', $perusahaan->id_perusahaan),
+                        {!! Form::model($barang, ['url' => route('produk.update', $barang->id_barang),
                             'method'=>'put', 'class'=>'form-horizontal']) !!}
-                        @include('perusahaan._form')
+                        @include('produk._form2')
                         {!! Form::close() !!}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="panel panel-border panel-custom">
-                        <div class="panel-heading">
-                            <h2 class="panel-title">Upload Berkas</h2>
-                        </div>
-                        <div class="panel-body">
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <form name="form_upload" id="form-upload" action="{{ action('PerusahaanController@uploadBerkas') }}" role="form" class="form-validation" method="POST" enctype="multipart/form-data">
-                                            {!! csrf_field() !!}
-                                            <input name="_method" id="form-upload-method" type="hidden" value="POST">
-                                            <input name="id_perusahaan" id="upload-berkas-perusahaan" type="hidden" value="{{ $perusahaan->id_perusahaan }}">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <div class="form-group">
-                                                        <label class="control-label">Upload Dokumen</label>
-                                                        <input type="file" name="nama_file" class="filestyle" data-iconname="fa fa-cloud-upload" required />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <div class="pull-left">
-                                                        <button type="submit" 
-                                                            href="javascript:;" 
-                                                            onclick="$.Notification.autoHideNotify('warning', 'top right', 'Prosesing...','Data sedang di UPLOAD.')"
-                                                            class="btn btn-embossed btn-primary m-r-0 waves-effect waves-light autohidebut">
-                                                            <i class="fa fa-floppy-o"></i> Upload Data</button>
-                                                        {{--  <a type="submit" class="btn btn-default waves-effect waves-light autohidebut"
-                                                            href="javascript:;" 
-                                                            onclick="$.Notification.autoHideNotify('custom', 'top right', 'Prosesing...','Data sedang di UPLOAD.')">Upload File</a>  --}}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
