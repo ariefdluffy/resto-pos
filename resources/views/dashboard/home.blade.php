@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Lapeling | DLHKubar
+Resto | PoS
 @endsection
 
 @section('content')
@@ -17,34 +17,34 @@ Lapeling | DLHKubar
                     <h4 class="page-title">Dashboard</h4>
                     <ol class="breadcrumb">
                         <li class="active">
-                            <a href="#">Lapeling DLHKubar</a>
+                            <a href="#">Resto | PoS</a>
                         </li>
                     </ol>
                 </div>
             </div>
 
-            @if(Auth::user()->level == 'admin')
+            
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card-box widget-inline">
                         <div class="row">
                             <div class="col-lg-3 col-sm-6">
                                 <div class="widget-inline-box text-center">
-                                    <h3><i class="text-primary md ion-android-contacts"></i> <b data-plugin="counterup">{{ $jumlah_perusahaan }}</b></h3>
-                                    <h4 class="text-muted">Perusahaan Terdaftar</h4>
+                                    <h3><i class="text-primary md ion-android-contacts"></i> <b data-plugin="counterup">{{ $jumlah_produk }}</b></h3>
+                                    <h4 class="text-muted">Barang</h4>
                                 </div>
                             </div>
                             
                             <div class="col-lg-3 col-sm-6">
                                 <div class="widget-inline-box text-center">
-                                    <h3><i class="text-custom md md-attach-money"></i> <b data-plugin="counterup">{{ $jumlah_laporan }}</b></h3>
+                                    {{--  <h3><i class="text-custom md md-attach-money"></i> <b data-plugin="counterup">{{ $jumlah_laporan }}</b></h3>  --}}
                                     <h4 class="text-muted">Laporan Masuk</h4>
                                 </div>
                             </div>
                             
                             <div class="col-lg-3 col-sm-6">
                                 <div class="widget-inline-box text-center">
-                                    <h3><i class="text-pink md md-account-child"></i> <b data-plugin="counterup">{{ $jumlah_perusahaan }}</b></h3>
+                                    {{--  <h3><i class="text-pink md md-account-child"></i> <b data-plugin="counterup">{{ $jumlah_perusahaan }}</b></h3>  --}}
                                     <h4 class="text-muted">Total users</h4>
                                 </div>
                             </div>
@@ -65,12 +65,12 @@ Lapeling | DLHKubar
                 <div class="col-md-12">
                     <div class="card-box table-responsive">
                         <h4 class="m-t-0 header-title"><b>Halaman Admin</b></h4
-                        <p>Anda login sebagai {{ Auth::user()->name }} <p>
+                        
                     </div>
                 </div>
             </div>
 
-            @else
+            {{--  @else
             <div class="row">
                 <div class="col-md-12">
                     <div class="card-box table-responsive">
@@ -79,7 +79,7 @@ Lapeling | DLHKubar
                     </div>
                 </div>
             </div>
-            @endif
+            @endif  --}}
 
 
         </div> <!-- container -->

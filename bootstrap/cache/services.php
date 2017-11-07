@@ -31,6 +31,7 @@
     27 => 'App\\Providers\\AuthServiceProvider',
     28 => 'App\\Providers\\EventServiceProvider',
     29 => 'App\\Providers\\RouteServiceProvider',
+    30 => 'Alfa6661\\AutoNumber\\AutoNumberServiceProvider',
   ),
   'eager' => 
   array (
@@ -49,6 +50,7 @@
     12 => 'App\\Providers\\AuthServiceProvider',
     13 => 'App\\Providers\\EventServiceProvider',
     14 => 'App\\Providers\\RouteServiceProvider',
+    15 => 'Alfa6661\\AutoNumber\\AutoNumberServiceProvider',
   ),
   'deferred' => 
   array (

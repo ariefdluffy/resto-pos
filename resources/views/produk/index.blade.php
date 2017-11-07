@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-Lapeling | Perusahaan
+Resto PoS
 @endsection
 
 @section('css')
@@ -21,47 +21,48 @@ Lapeling | Perusahaan
     <!-- Start content -->
     <div class="content">
         <div class="container">
+        
             <!-- Page-Title -->
             <div class="row">
                 <ul class="breadcrumb">
                     <li><a href="{{ url('/home') }}">Dashboard</a></li>
-                    <li class="active">Perusahaan</a></li>
+                    <li class="active">Produk</a></li>
                 </ul>
                 <div class="col-sm-12">
                     <div class="card-box table-responsive">
-                        <h4 class="m-t-0 header-title"><b>Data Perusahaan</b></h4>
+                        <h4 class="m-t-0 header-title"><b>Data Produk</b></h4>
                         <div class="panel panel-default panel-border">
                         <div class="panel-content">
                             <div class="row">
                                 <div class="btn-group col-sm-12">
-                                    <a href="{{ route('perusahaan.create') }}" class="btn btn-primary waves-effect waves-light" data-overlaySpeed="100" data-overlayColor="#36404a">Tambah Data</a>
+                                    <a href="{{ route('produk.create') }}" class="btn btn-primary waves-effect waves-light" data-overlaySpeed="100" data-overlayColor="#36404a">Tambah Data</a>
                                 </div>
                             </div>
                         </div>
                         <div class="panel-body">
+                        
                             <table id="per-table" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Nama Perusahaan</th>
-                                        <th>Alamat Perusahaan</th>
-                                        <th>Jenis Perusahaan</th>
+                                        <th>Kode Produk</th>
+                                        <th>Nama Produk</th>
+                                        <th>Harga</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <?php $i = 1; ?>
                                 <tbody>
-                                @foreach ($perusahaan as $gov)
+                                @foreach ($barang as $items)
                                 <tr>
                                     <td>{{ $i++  }}</td>
-                                    <td>{{ $gov->nama_perusahaan  }}</td>
-                                    <td>{{ $gov->alamat_perusahaan  }}</td>
-                                    <td>{{ $gov->jenis_perusahaan  }}</td>
+                                    <td>{{ $items->kode_barang  }}</td>
+                                    <td>{{ $items->nama_barang  }}</td>
+                                    <td>Rp. {{ $items->harga  }}</td>
                                     <td>
-                                        {!! Form::open(array('route' => array('perusahaan.destroy', $gov->id_perusahaan), 'method' =>'DELETE')) !!}
-                                            <a class="edit btn btn-sm btn-success" href="{{ route('perusahaan.edit', $gov->id_perusahaan) }}" data-container="body" data-toggle="popover" data-content="Edit" data-placement="top"><i class="fa fa-edit"></i></a>
-                                            <a class="btn-sm btn-warning waves-effect waves-light" href="{{ route('perusahaan.show', $gov->id_perusahaan) }}" data-container="body" data-toggle="popover" data-content="Detail" data-placement="top">Detail</a>
-                                            {{--  <input class="delete btn btn-sm btn-danger" id="danger-alert" type="submit" value="Hapus">  --}}
+                                        {!! Form::open(array('route' => array('produk.destroy', $items->id_barang), 'method' =>'DELETE')) !!}
+                                            <a class="edit btn btn-sm btn-success" href="{{ route('produk.edit', $items->id_barang) }}" data-container="body" data-toggle="popover" data-content="Edit" data-placement="top"><i class="fa fa-edit"></i></a>
+                                            <a class="btn-sm btn-warning waves-effect waves-light" href="{{ route('produk.show', $items->id_perusahaan) }}" data-container="body" data-toggle="popover" data-content="Detail" data-placement="top">Detail</a>
                                             <a class="delete btn btn-sm btn-danger" href="javascript:;" onclick="return showAlert($(this).closest('form'));" rel="popover" data-container="body" 
                                             data-toggle="popover" data-content="Hapus" data-placement="top"><i class="fa fa-trash"></i></a>
                                         {!! Form::close() !!}

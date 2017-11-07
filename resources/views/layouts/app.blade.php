@@ -44,7 +44,7 @@
                 <!-- LOGO -->
                 <div class="topbar-left">
                     <div class="text-center">
-                        <a href="/" class="logo"><i class="icon-magnet icon-c-logo"></i><span>DLH Kubar</span></a>
+                        <a href="/" class="logo"><i class="icon-magnet icon-c-logo"></i><span>Resto | PoS</span></a>
                         <!-- Image Logo here -->
                         <!--<a href="index.html" class="logo">-->
                             <!--<i class="icon-c-logo"> <img src="assets/images/logo_sm.png" height="42"/> </i>-->
@@ -106,33 +106,34 @@
                     <!--- Divider -->
                     <div id="sidebar-menu">
                         <ul>
-                        @if(Auth::user()->level == 'admin')
                         <li class="text-muted menu-title">Navigation</li>
                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="ti-home"></i> <span> Dashboard </span> <span class="menu-arrow"></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="/">Home</a></li>
-                                <li class="{{ set_active('perusahaan.*') }}"><a href="{{ route('perusahaan.index') }}">Data Perusahaan</a></li>
+                                
                             </ul>
                         </li>
 
-                        <li class="text-muted menu-title">Print Out</li>
+                        <li class="text-muted menu-title">Barang</li>
                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-user"></i><span> Laporan</span> <span class="menu-arrow"></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-user"></i><span> Inventory</span> <span class="menu-arrow"></span></a>
                             <ul class="list-unstyled">
-                                <li class="{{ set_active('laporan') }}"><a href="{{ route('laporan.index') }}"> Data Perusahaan </a></li>
+                                <li><a href="{{ route('produk.index') }}"> Master Data Barang</a></li>
+                                <li><a href="#"> Data Suplier</a></li>
                             </ul>
                         </li>
-                        @else
-                        <li class="text-muted menu-title">Navigation</li>
+                        
+                        <li class="text-muted menu-title">Transaksi</li>
                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-home"></i> <span> Dashboard </span> <span class="menu-arrow"></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-location-pin"></i><span> Transaksi </span> <span class="menu-arrow"></span></a>
                             <ul class="list-unstyled">
-                                <li><a href="/">Home</a></li>
-                                <li class="{{ set_active('member.*') }}"><a href="{{ action('HomeController@editMember') }}">Data Perusahaan</a></li>
+                                <li><a href="{{ route('transaksi.index') }}"> Penjualan</a></li>
+                                <li><a href="#"> Pembelian</a></li>
                             </ul>
                         </li>
-                        @endif
+
+                        
 
                         </ul>
                         <div class="clearfix"></div>

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Lapeling | Tambah Data Perusahaan
+Resto | Tambah Data
 @endsection
 
 @section('content')
@@ -13,16 +13,16 @@ Lapeling | Tambah Data Perusahaan
             <div class="row">
                 <ul class="breadcrumb">
                     <li><a href="{{ url('/home') }}">Dashboard</a></li>
-                    <li><a href="{{ route('perusahaan.index') }}">Perusahaan</a></li>
+                    <li><a href="{{ route('produk.index') }}">Perusahaan</a></li>
                     <li class="active">Tambah Data</li>
                 </ul>
                 <div class="col-xs-8">
                     <div class="card-box table-responsive">
                         <h4 class="m-t-0 header-title"><b>Data Perusahaan</b></h4>
                         <div class="panel-body">
-                          {!! Form::open(['url' => route('perusahaan.store'),
+                          {!! Form::open(['url' => route('produk.store'),
                           'method' => 'post', 'class'=>'form-horizontal']) !!}
-                          @include('perusahaan._form')
+                          @include('produk._form')
                           {!! Form::close() !!}
                         </div>
                     </div>
