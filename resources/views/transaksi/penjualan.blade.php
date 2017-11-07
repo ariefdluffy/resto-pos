@@ -225,19 +225,18 @@ Resto PoS | Transaksi
                                 {!! Form::label('jumlah_uang', 'Jumlah Uang', ['class'=>'col-md-4 control-label']) !!}
                                     <div class="col-md-6">
                                         {!! Form::number('jumlah_uang', null, ['class'=>'form-control','name' => 'jumlah_uang',
-                                        'id' => 'jumlah_uang', 'onkeyup' => 'kembalian();']) !!}
+                                        'id' => 'jumlah_uang', 'onkeyup' => 'kembalian();', 'min' => '0']) !!}
                                         {!! $errors->first('jumlah_uang', '<p class="help-block">:message</p>') !!}
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-sm-4">
-                                <div class="form-group{{ $errors->has('kembalian') ? ' has-error' : '' }}">
-                                {!! Form::label('kembalian', 'Kembalian', ['class'=>'col-md-6 control-label']) !!}
+                                <div class="form-group{{ $errors->has('kembali') ? ' has-error' : '' }}">
+                                {!! Form::label('kembali', 'Kembalian', ['class'=>'col-md-6 control-label']) !!}
                                     <div class="col-md-6">
-                                        {!! Form::number('kembalian', null, ['class'=>'form-control','id' => 'kembalian',
-                                         'readonly' => '', 'name' => 'kembalian', 'min' => '0']) !!}
-                                        {!! $errors->first('kembalian', '<p class="help-block">:message</p>') !!}
+                                        {!! Form::number('kembali', null, ['class'=>'form-control', 
+                                            'id' => 'kembali', 'readonly' => '']) !!}
                                     </div>
                                 </div>
                                 <label class="col-sm-6 control-label">&nbsp;
@@ -322,7 +321,7 @@ function kembalian() {
     var txtSecondNumberValue = document.getElementById('jumlah_uang').value;
     var result = parseInt(txtSecondNumberValue) - parseInt(txtFirstNumberValue);
     if (!isNaN(result)) {
-        document.getElementById('kembalian').value = result;
+        document.getElementById('kembali').value = result;
     }
 }
 </script>
