@@ -171,8 +171,9 @@ Resto PoS | Transaksi
                                                         echo "<td>$jumlah</td>";
                                                         ?>
                                                         <td>
-                                                            {{ Form::open(['method' => 'DELETE', 'route' => ['transaksi.destroy', $pen->id_transaksi]]) }}
-                                                                {{ Form::submit('Delete', ['class' => 'btn btn-sm btn-danger', 'onsubmit' => 'return ConfirmDelete()']) }}
+                                                            {{ Form::open(['method' => 'DELETE', 'route' => ['transaksi.destroy', $pen->id_transaksi_detail]]) }}
+                                                                <a class="delete btn btn-sm btn-danger" href="javascript:;" onclick="return showAlert($(this).closest('form'));" rel="popover" data-container="body" 
+                                                                data-toggle="popover" data-content="Hapus" data-placement="top"><i class="fa fa-trash"></i></a>
                                                             {{ Form::close() }}
                                                         </td>
                                                     </tr>
@@ -324,5 +325,23 @@ function kembalian() {
         document.getElementById('kembali').value = result;
     }
 }
+
+function showAlert(form) {
+    swal({
+    title: "Apakah anda yakin?",
+    text: "Menghapus data yang anda pilih!",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#DD6B55",
+    confirmButtonText: "Ya, hapus!",
+    cancelButtonText: "Batal",
+    closeOnConfirm: false
+    },
+    function(){
+        form.submit();
+    });
+    };
 </script>
+
+
 @endsection

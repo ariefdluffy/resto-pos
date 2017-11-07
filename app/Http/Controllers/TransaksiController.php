@@ -81,7 +81,7 @@ class TransaksiController extends Controller
             $detail_trx->save();
 
         }else{
-            
+
             $trx_pending = new Transaksi();
             $trx_pending->invoice = $request->invoice;
             $trx_pending->id_pelanggan = '1';
@@ -179,9 +179,11 @@ class TransaksiController extends Controller
      * @param  \App\Transaksi  $transaksi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Transaksi $transaksi)
+    public function destroy(Request $request, $id)
     {
-        //
+        //$id = TransaksiDetail::where('id_transaksi_detail', '=', $transaksi->id_transaksi_detail)->get();
+        TransaksiDetail::destroy($id);
+        return redirect()->route('transaksi.index');
     }
 }
 
