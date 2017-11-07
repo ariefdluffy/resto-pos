@@ -43,8 +43,11 @@ class TransaksiController extends Controller
                     ->get();
 
         $total_bayar = DB::table('transaksis_detail')
-                            ->select('subtotal')->sum('subtotal');
-         //return $showTable[0]->id_transaksi;
+                            ->join('transaksis','transaksis.invoice','=','transaksis_detail.invoice')
+                            ->select('subtotal')
+                            ->where('status','=', 'pending')
+                            ->sum('subtotal');
+        //return $total_bayar;
         //dd($showTable->all());
 
         return view ('transaksi.penjualan', compact('barang','tampil', 'showTable','total_bayar'));
@@ -114,21 +117,16 @@ class TransaksiController extends Controller
 
     public function ProsesTransaksi(Request $request, $id)
     {
-        //dd($request->all());
         $id_transaksi1 = DB::table('transaksis')
                         ->select('id_transaksi', 'invoice')
                         ->where('invoice','=', $request->invoice)->get();
-
-        //return $id_transaksi1[0]->id_transaksi;
-        $transaksi = Transaksi::find($id_transaksi1[0]->id_transaksi);
-        //$transaksi = Transaksi::find($request->invoice);
-        //return $transaksi;
-        $input = $request->input();
-        return $input;
         
-        //$transaksi->update($request->all());
+        $transaksi = Transaksi::find($id_transaksi1[0]->id_transaksi);
+        
+        $input = $request->input();
+        
         $transaksi->fill($input)->save();
-        //dd($request->all());
+        
         return redirect()->back();
     }
 
