@@ -8,6 +8,6 @@ class TransaksiDetail extends Model
 {
     protected $table = 'transaksis_detail';
     protected $fillable =   [
-        'id_transaksi','id_barang','qty_jual','id_satuan','diskon_jual','harga_jual'
+        'id_transaksi','id_barang','qty_jual', 'subtotal','id_satuan','diskon_jual','harga_jual'
     ];
 }

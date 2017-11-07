@@ -31,12 +31,13 @@ class CreateTransaksisTable extends Migration
 
         Schema::create('transaksis_detail', function (Blueprint $table) {
             $table->increments('id_transaksi_detail');
-            $table->integer('id_transaksi');
+            $table->string('invoice');
             $table->integer('id_barang');
             $table->integer('qty_jual');
+            $table->integer('harga_jual');
             $table->integer('id_satuan');
             $table->integer('diskon_jual');
-            $table->integer('harga_jual');
+            $table->integer('subtotal');
             $table->timestamps();
         });
     }

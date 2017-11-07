@@ -33,6 +33,15 @@ Resto PoS | Transaksi
                         <div class="panel-body">
                         {!! Form::open(['url' => action('TransaksiController@SimpanTransaksi'), 'method' => 'post', 'class'=>'form-horizontal']) !!}
                             <div class="col-sm-6">
+                            <!-- {!! Form::text('invoice', $tampil, ['class'=>'col-md-4 control-label']) !!} -->
+                                    <div class="form-group">
+                                    {!! Form::label('invoice', 'Invoice', ['class'=>'col-md-4 control-label']) !!}
+                                        <div class="col-md-6">
+                                            {!! Form::text('invoice', $tampil, ['class'=>'form-control', 'readonly' => '']) !!}
+                                            {!! $errors->first('invoice', '<p class="help-block">:message</p>') !!}
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
                                     {!! Form::label('id_karyawan', 'Nama Karyawan', ['class'=>'col-md-4 control-label']) !!}
                                         <div class="col-md-6">
@@ -79,7 +88,7 @@ Resto PoS | Transaksi
                                 {!! Form::label('harga_jual', 'Harga Jual', ['class'=>'col-md-4 control-label']) !!}
                                     <div class="col-md-4">
                                         {!! Form::number('harga_jual', $barang[0]->harga, ['class'=>'form-control',
-                                         'id' => 'harga_jual', 'readonly' => '', 'onkeyup' => 'sum();']) !!}
+                                         'id' => 'harga_jual','name' => 'harga_jual', 'readonly' => '', 'onkeyup' => 'sum();']) !!}
                                         {!! $errors->first('harga_jual', '<p class="help-block">:message</p>') !!}
                                     </div>
                                 </div>
@@ -87,8 +96,8 @@ Resto PoS | Transaksi
                                 <div class="form-group{{ $errors->has('qty') ? ' has-error' : '' }}">
                                 {!! Form::label('qty', 'Jumlah Beli', ['class'=>'col-md-4 control-label']) !!}
                                     <div class="col-md-4">
-                                        {!! Form::number('qty', null, ['class'=>'form-control', 'name' => 'qty', 
-                                        'id'=>'qty' ,'onkeyup' => 'sum();']) !!}
+                                        {!! Form::number('qty', '1', ['class'=>'form-control', 'min' => '1',
+                                         'max' => '100', 'name' => 'qty', 'id'=>'qty', 'autofocus' => '' ,'onkeyup' => 'sum();']) !!}
                                         {!! $errors->first('qty', '<p class="help-block">:message</p>') !!}
                                     </div>
                                 </div>
@@ -119,7 +128,7 @@ Resto PoS | Transaksi
                                         {!! $errors->first('kembalian', '<p class="help-block">:message</p>') !!}
                                     </div>
                                 </div>  --}}
-                                {!! Form::hidden('status', 'menunggu', ['class'=>'form-control']) !!}
+                                <!-- {!! Form::hidden('status', 'menunggu', ['class'=>'form-control']) !!} -->
 
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label">&nbsp;
@@ -133,7 +142,6 @@ Resto PoS | Transaksi
                                     </div>
                                     </div>
                                 </div>
-                                {!! Form::hidden('invoice', $tampil, ['class'=>'col-md-4 control-label']) !!}
                             </div>
                             {!! Form::close() !!}
                         </div>
@@ -142,17 +150,13 @@ Resto PoS | Transaksi
             </div>
 
             {!! Form::open(['url' => action('TransaksiController@SimpanTransaksi'), 'method' => 'post', 'class'=>'form-horizontal']) !!}
+            
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card-box">
                         <div class="row">
                             <div class="panel-heading">
-                                {{--  <div class="col-sm-6">
-                                {!! Form::label('invoice', 'Nomor Faktur', ['class'=>'col-md-4 control-label']) !!}
-                                    <div class="form-group{{ $errors->has('invoice') ? ' has-error' : '' }}">
-                                        {!! Form::label('invoice', $tampil, ['class'=>'col-md-4 control-label']) !!}
-                                    </div>
-                                </div>  --}}
+                                Tabel Detail Transaksi
                             </div>
                             <div class="panel-body">
                                 <div class="row" id="row-order">
@@ -162,10 +166,11 @@ Resto PoS | Transaksi
                                             <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>No. Transaksi</th>
+                                                <th>Kode Barang</th>
                                                 <th>Nama Produk</th>
                                                 <th>Qty</th>
                                                 <th>Harga</th>
+                                                <th>Sub Harga</th>
                                                 <th>Aksi</th>
                                             </tr>
                                             </thead>
@@ -174,10 +179,13 @@ Resto PoS | Transaksi
                                                 @foreach ($showTable as $pen)
                                                     <tr>
                                                         <td>{{ $i++ }}</td>
-                                                        <td>{{ $pen->invoice }}</td>
+                                                        <td>{{ $pen->kode_barang }}</td>
                                                         <td>{{ $pen->nama_barang }}</td>
                                                         <td>{{ $pen->qty_jual }}</td>
                                                         <td>{{ $pen->harga_jual }}</td>
+                                                        <?php $jumlah = $pen->qty_jual * $pen->harga_jual;
+                                                        echo "<td>$jumlah</td>";
+                                                        ?>
                                                         <td>
                                                             {{ Form::open(['method' => 'DELETE', 'route' => ['transaksi.destroy', $pen->id_transaksi]]) }}
                                                                 {{ Form::submit('Delete', ['class' => 'btn btn-sm btn-danger', 'onsubmit' => 'return ConfirmDelete()']) }}
@@ -203,7 +211,7 @@ Resto PoS | Transaksi
                                 <div class="form-group{{ $errors->has('diskon_persen') ? ' has-error' : '' }}">
                                 {!! Form::label('diskon_persen', 'Diskon Persen', ['class'=>'col-md-4 control-label']) !!}
                                     <div class="col-md-4">
-                                        {!! Form::number('diskon_persen', null, ['class'=>'form-control']) !!}
+                                        {!! Form::number('diskon_persen', null, ['class'=>'form-control','min' => '0', 'max' => '10']) !!}
                                         {!! $errors->first('diskon_persen', '<p class="help-block">:message</p>') !!}
                                     </div>
                                 </div>
@@ -211,7 +219,7 @@ Resto PoS | Transaksi
                                 <div class="form-group{{ $errors->has('diskon_rupiah') ? ' has-error' : '' }}">
                                 {!! Form::label('diskon_rupiah', 'Diskon Rupiah', ['class'=>'col-md-4 control-label']) !!}
                                     <div class="col-md-4">
-                                        {!! Form::number('diskon_rupiah', null, ['class'=>'form-control']) !!}
+                                        {!! Form::number('diskon_rupiah', null, ['class'=>'form-control','min' => '0', 'max' => '10000']) !!}
                                         {!! $errors->first('diskon_rupiah', '<p class="help-block">:message</p>') !!}
                                     </div>
                                 </div>
@@ -221,8 +229,11 @@ Resto PoS | Transaksi
                                 <div class="form-group{{ $errors->has('total_harga') ? ' has-error' : '' }}">
                                 {!! Form::label('total_harga', 'Total Harga', ['class'=>'col-md-4 control-label']) !!}
                                     <div class="col-md-4">
-                                        {!! Form::number('total_harga', null, ['class'=>'form-control']) !!}
+                                    
+                                        {!! Form::number('total_harga', $total_bayar, ['class'=>'form-control', 
+                                        'id' => 'total_harga', 'name' => 'total_harga']) !!}
                                         {!! $errors->first('total_harga', '<p class="help-block">:message</p>') !!}
+                                  
                                     </div>
                                 </div>
 
@@ -299,6 +310,7 @@ Resto PoS | Transaksi
 <script src="{{ asset('assets/pages/jquery.sweet-alert.init.js') }}"></script>
 
 <script>
+
 function initDataTable() {
   $("#tbl-order").DataTable();
 }
