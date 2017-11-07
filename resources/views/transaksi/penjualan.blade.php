@@ -44,7 +44,7 @@ Resto PoS | Transaksi
                                     <div class="form-group">
                                     {!! Form::label('id_karyawan', 'Nama Karyawan', ['class'=>'col-md-4 control-label']) !!}
                                         <div class="col-md-6">
-                                            {!! Form::text('id_karyawan', '2', ['class'=>'form-control', 'readonly' => '']) !!}
+                                            {!! Form::text('id_karyawan', 'Arief', ['class'=>'form-control', 'readonly' => '']) !!}
                                             {!! $errors->first('id_karyawan', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
