@@ -39,12 +39,13 @@ class TransaksiController extends Controller
         $showTable = DB::table('transaksis')
                     ->join('transaksis_detail', 'transaksis.invoice', '=', 'transaksis_detail.invoice')
                     ->join('barangs', 'barangs.id_barang', '=', 'transaksis_detail.id_barang')
+                    ->where('transaksis.invoice', '=', $tampil)
                     ->get();
 
         $total_bayar = DB::table('transaksis_detail')
                             ->select('subtotal')->sum('subtotal');
         // return $total_bayar;
-        // return $showTable;
+        //dd($showTable->all());
 
         return view ('transaksi.penjualan', compact('barang','tampil', 'showTable','total_bayar'));
     }
@@ -67,7 +68,7 @@ class TransaksiController extends Controller
         // return $tampil;
 
         $trx_pending = new Transaksi();
-        $trx_pending->invoice = $request->$tampil;
+        $trx_pending->invoice = $request->invoice;
         $trx_pending->id_pelanggan = '1';
         $trx_pending->diskon_persen = '0';
         $trx_pending->diskon_rupiah = '0';
@@ -77,12 +78,13 @@ class TransaksiController extends Controller
         $trx_pending->id_type_bayar = $request->id_tipe_bayar;
         $trx_pending->id_karyawan = $request->id_karyawan;
         $trx_pending->status = 'pending';
-
-        // $trx_pending->save();
+        //dd($request->all());
+        //return $trx_pending;
+        $trx_pending->save();
 
 
         $id = Transaksi::where('invoice', '=', $request->invoice)->get();
-        // return $id;
+        //return $id;
         
         $detail_trx = new TransaksiDetail();
         $detail_trx->invoice = $id[0]->invoice;
