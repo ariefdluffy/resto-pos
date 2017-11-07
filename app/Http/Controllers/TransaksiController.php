@@ -65,36 +65,50 @@ class TransaksiController extends Controller
 
             $invoice = 'INVO-' . sprintf('%04d', intval($number) + 1);
             $tampil = Form::getValueAttribute('invoice', $invoice);
-        // return $tampil;
+        //return $tampil;
+        if ($lastOrder == false){
+            $id = Transaksi::where('invoice', '=', $request->invoice)->get();
+            //return $id;
+            
+            $detail_trx = new TransaksiDetail();
+            $detail_trx->invoice = $id[0]->invoice;
+            $detail_trx->id_barang = $request->id_barang;
+            $detail_trx->qty_jual = $request->qty;
+            $detail_trx->id_satuan = '2';
+            $detail_trx->diskon_jual = '0';
+            $detail_trx->subtotal = $request->total;
+            $detail_trx->harga_jual = $request->harga_jual;
+            $detail_trx->save();
 
-        $trx_pending = new Transaksi();
-        $trx_pending->invoice = $request->invoice;
-        $trx_pending->id_pelanggan = '1';
-        $trx_pending->diskon_persen = '0';
-        $trx_pending->diskon_rupiah = '0';
-        $trx_pending->diskon_belanja = '0';
-        $trx_pending->jumlah_bayar = '0';
-        $trx_pending->keterangan = $request->ket;
-        $trx_pending->id_type_bayar = $request->id_tipe_bayar;
-        $trx_pending->id_karyawan = $request->id_karyawan;
-        $trx_pending->status = 'pending';
-        //dd($request->all());
-        //return $trx_pending;
-        $trx_pending->save();
+        }else{
+            
+            $trx_pending = new Transaksi();
+            $trx_pending->invoice = $request->invoice;
+            $trx_pending->id_pelanggan = '1';
+            $trx_pending->diskon_persen = '0';
+            $trx_pending->diskon_rupiah = '0';
+            $trx_pending->diskon_belanja = '0';
+            $trx_pending->jumlah_bayar = '0';
+            $trx_pending->keterangan = $request->ket;
+            $trx_pending->id_type_bayar = $request->id_tipe_bayar;
+            $trx_pending->id_karyawan = $request->id_karyawan;
+            $trx_pending->status = 'pending';
+            //dd($request->all());
+            //return $trx_pending;
+            $trx_pending->save();
 
+            $id = Transaksi::where('invoice', '=', $request->invoice)->get();
 
-        $id = Transaksi::where('invoice', '=', $request->invoice)->get();
-        //return $id;
-        
-        $detail_trx = new TransaksiDetail();
-        $detail_trx->invoice = $id[0]->invoice;
-        $detail_trx->id_barang = $request->id_barang;
-        $detail_trx->qty_jual = $request->qty;
-        $detail_trx->id_satuan = '2';
-        $detail_trx->diskon_jual = '0';
-        $detail_trx->subtotal = $request->total;
-        $detail_trx->harga_jual = $request->harga_jual;
-        $detail_trx->save();
+            $detail_trx = new TransaksiDetail();
+            $detail_trx->invoice = $id[0]->invoice;
+            $detail_trx->id_barang = $request->id_barang;
+            $detail_trx->qty_jual = $request->qty;
+            $detail_trx->id_satuan = '2';
+            $detail_trx->diskon_jual = '0';
+            $detail_trx->subtotal = $request->total;
+            $detail_trx->harga_jual = $request->harga_jual;
+            $detail_trx->save();
+        }       
         // dd($request->all());
         return redirect()->back();
     }
