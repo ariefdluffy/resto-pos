@@ -142,7 +142,7 @@ Resto PoS | Transaksi
                             <div class="panel-body">
                                 <div class="row" id="row-order">
                                     <div class="panel-content pagination2">
-                                        <table id="tbl-order" class="table table-hover table-dynamic" width="100%">
+                                        <table id="tbl-order" class="table table-hover table-bordered" width="100%">
                                             <col style="width:3%">
                                             <thead>
                                             <tr>
