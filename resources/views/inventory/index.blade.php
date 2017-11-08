@@ -1,18 +1,19 @@
 @extends('layouts.app')
 @section('title')
-Resto PoS
+Resto PoS | Data Ketegori
 @endsection
 
 @section('css')
-<link href="{{ asset('assets/plugins/bootstrap-select/css/bootstrap-select.min.css') }}" rel="stylesheet" />
 <link href="{{ asset('assets/plugins/bootstrap-sweetalert/sweet-alert.css') }}" rel="stylesheet" type="text/css">
- <!-- Plugins css-->
-<link href="{{ asset('assets/plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet" />
-<link href="{{ asset('assets/plugins/switchery/css/switchery.min.css') }}" rel="stylesheet" />
-<link href="{{ asset('assets/plugins/multiselect/css/multi-select.css') }}"  rel="stylesheet" type="text/css" />
-<link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('assets/plugins/bootstrap-select/css/bootstrap-select.min.css') }}" rel="stylesheet" />
-<link href="{{ asset('assets/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css') }}" rel="stylesheet" />
+
+<link href="{{ asset('assets/plugins/datatables/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('assets/plugins/datatables/buttons.bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('assets/plugins/datatables/fixedHeader.bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('assets/plugins/datatables/responsive.bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('assets/plugins/datatables/scroller.bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('assets/plugins/datatables/dataTables.colVis.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('assets/plugins/datatables/fixedColumns.dataTables.min.css') }}" rel="stylesheet" type="text/css"/>
 @endsection
 
 @section('content')
@@ -20,44 +21,90 @@ Resto PoS
     <!-- Start content -->
     <div class="content">
         <div class="container">
-        
             <!-- Page-Title -->
             <div class="row">
                 <ul class="breadcrumb">
                     <li><a href="{{ url('/home') }}">Dashboard</a></li>
                     <li class="active">Produk</a></li>
                 </ul>
-                <div class="col-sm-12">
+                <div class="col-md-6">
                     <div class="card-box table-responsive">
                         <h4 class="m-t-0 header-title"><b>Data Kategori</b></h4>
                         <div class="panel panel-default panel-border">
-                    
-                        <div class="panel-body">
-                        
-                            <table id="per-table" class="table table-striped table-bordered">
-                                <thead>
+                            <div class="panel-content">
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <a href="{{ route('produk.create') }}" class="btn btn-primary waves-effect waves-light" data-overlaySpeed="100" data-overlayColor="#36404a">Tambah Data</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <table id="tablekategori" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Nama Produk</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <?php $i = 1; ?>
+                                    <tbody>
+                                    @foreach ($kategori as $kat)
                                     <tr>
-                                        <th>#</th>
-                                        <th>Nama Produk</th>
-                                        <th>Aksi</th>
+                                        <td>{{ $i++  }}</td>
+                                        <td>{{ $kat->nama_kategori  }}</td>
+                                        <td>
+                                            {!! Form::open(array('action' => array('KategoriController@hapus', $kat->id_kategori), 'method' =>'DELETE')) !!}
+                                                <a class="delete btn btn-sm btn-danger" href="javascript:;" onclick="return showAlert($(this).closest('form'));" rel="popover" data-container="body" 
+                                                data-toggle="popover" data-content="Hapus" data-placement="top"><i class="fa fa-trash"></i></a>
+                                            {!! Form::close() !!}
+                                        </td>
                                     </tr>
-                                </thead>
-                                <?php $i = 1; ?>
-                                <tbody>
-                                @foreach ($kategori as $kat)
-                                <tr>
-                                    <td>{{ $i++  }}</td>
-                                    <td>{{ $kat->nama_kategori  }}</td>
-                                    <td>
-                                        {!! Form::open(array('action' => array('KategoriController@hapus', $kat->id_kategori), 'method' =>'DELETE')) !!}
-                                            <a class="delete btn btn-sm btn-danger" href="javascript:;" onclick="return showAlert($(this).closest('form'));" rel="popover" data-container="body" 
-                                            data-toggle="popover" data-content="Hapus" data-placement="top"><i class="fa fa-trash"></i></a>
-                                        {!! Form::close() !!}
-                                    </td>
-                                </tr>
-                                @endforeach
-                                </tbody>                    
-                            </table>
+                                    @endforeach
+                                    </tbody>                    
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card-box table-responsive">
+                        <h4 class="m-t-0 header-title"><b>Data Rak</b></h4>
+                        <div class="panel panel-default panel-border">
+                            <div class="panel-content">
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <a href="{{ route('produk.create') }}" class="btn btn-primary waves-effect waves-light" data-overlaySpeed="100" data-overlayColor="#36404a">Tambah Data</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <table id="tablekategori1" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Nama Produk</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <?php $i = 1; ?>
+                                    <tbody>
+                                    @foreach ($rak as $cab)
+                                    <tr>
+                                        <td>{{ $i++  }}</td>
+                                        <td>{{ $cab->nama_rak  }}</td>
+                                        <td>
+                                            {!! Form::open(array('action' => array('KategoriController@hapus', $cab->id_rak), 'method' =>'DELETE')) !!}
+                                                <a class="delete btn btn-sm btn-danger" href="javascript:;" onclick="return showAlert($(this).closest('form'));" rel="popover" data-container="body" 
+                                                data-toggle="popover" data-content="Hapus" data-placement="top"><i class="fa fa-trash"></i></a>
+                                            {!! Form::close() !!}
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>                    
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -108,7 +155,11 @@ Resto PoS
 
 <script>
 $(document).ready(function () {
-    $('#per-table').dataTable();
+    $('#tablekategori').dataTable();
+});
+
+$(document).ready(function () {
+    $('#tablekategori1').dataTable();
 });
 
 function showAlert(form) {

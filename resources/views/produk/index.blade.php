@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-Resto PoS
+Resto PoS | Data Produk
 @endsection
 
 @section('css')

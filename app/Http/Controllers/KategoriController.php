@@ -19,9 +19,17 @@ class KategoriController extends Controller
     {
         $kategori = DB::table('kategoris')
                     ->get();
+
+        $rak = DB::table('raks')
+        ->get();
             //return $barang;
             //print_r $barang;
-            return view ('inventory.index', compact('kategori'));
+        return view ('inventory.index', compact('kategori','rak'));
+    }
+
+    public function Hapus($id)
+    {
+        return 'OK';
     }
 
     public function SimpanKategori(Request $request)

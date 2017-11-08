@@ -22,7 +22,7 @@ class BarangController extends Controller
         $barang = DB::table('barangs')
                     ->join('kategoris', 'kategoris.id_kategori','=','barangs.id_kategori')
                     ->get();
-         //return $barang;
+        //return $barang;
         //print_r $barang;
         return view ('produk.index', compact('barang'));
     }
