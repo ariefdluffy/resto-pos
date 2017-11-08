@@ -20,3 +20,38 @@ DB::table('transaksis')
                 'status' => 'selesai',
                 'jumlah_uang' => $request->jumlah_uang
                 ]);
+
+                <div class="col-sm-12">
+                    <div class="card-box table-responsive">
+                        <h4 class="m-t-0 header-title"><b>Data Kategori</b></h4>
+                        <div class="panel panel-default panel-border">
+                    
+                        <div class="panel-body">
+                        
+                            <table id="per-table" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nama Produk</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <?php $i = 1; ?>
+                                <tbody>
+                                @foreach ($kategori as $kat)
+                                <tr>
+                                    <td>{{ $i++  }}</td>
+                                    <td>{{ $kat->nama_kategori  }}</td>
+                                    <td>
+                                        {!! Form::open(array('action' => array('KategoriController@hapus', $kat->id_kategori), 'method' =>'DELETE')) !!}
+                                            <a class="delete btn btn-sm btn-danger" href="javascript:;" onclick="return showAlert($(this).closest('form'));" rel="popover" data-container="body" 
+                                            data-toggle="popover" data-content="Hapus" data-placement="top"><i class="fa fa-trash"></i></a>
+                                        {!! Form::close() !!}
+                                    </td>
+                                </tr>
+                                @endforeach
+                                </tbody>                    
+                            </table>
+                        </div>
+                    </div>
+                </div>

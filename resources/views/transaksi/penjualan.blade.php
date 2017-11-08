@@ -90,7 +90,7 @@ Resto PoS | Transaksi
 
                                         <div class="col-md-6">
 
-                                            {!! Form::text('id_karyawan', 'Arief', ['class'=>'form-control', 'readonly' => '']) !!}
+                                            {!! Form::text('id_karyawan', '1', ['class'=>'form-control', 'readonly' => '']) !!}
 
                                             {!! $errors->first('id_karyawan', '<p class="help-block">:message</p>') !!}
 

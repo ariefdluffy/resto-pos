@@ -120,7 +120,7 @@
                             <a href="javascript:void(0);" class="waves-effect"><i class="ti-user"></i><span> Inventory</span> <span class="menu-arrow"></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="{{ route('produk.index') }}"> Master Data Barang</a></li>
-                                <li><a href="#"> Data Suplier</a></li>
+                                <li><a href="{{ action('KategoriController@index') }}"> Detail Data Barang</a></li>
                             </ul>
                         </li>
                         

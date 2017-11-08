@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Kategori;
 use App\Rak;
 use App\Satuan;
+use DB;
 use Illuminate\Http\Request;
 
 class KategoriController extends Controller
@@ -16,7 +17,11 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        
+        $kategori = DB::table('kategoris')
+                    ->get();
+            //return $barang;
+            //print_r $barang;
+            return view ('inventory.index', compact('kategori'));
     }
 
     public function SimpanKategori(Request $request)

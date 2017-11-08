@@ -69,14 +69,15 @@ class BarangController extends Controller
             'id_kategori' => 'required',
             'id_rak' => 'required',
             'id_satuan' => 'required',
+            'ket' => 'required',
         ]);
 
-        $barang = Barang::create($request->all());
+       
         if ( $validation->fails() ) {
             // change below as required
             return \Redirect::back()->withInput()->withErrors( $validation->messages() );
         }
-
+        $barang = Barang::create($request->all());
         return redirect()->back();
     }
 
@@ -88,7 +89,7 @@ class BarangController extends Controller
      */
     public function show(Barang $barang)
     {
-        //
+        return 'ok';
     }
 
     /**

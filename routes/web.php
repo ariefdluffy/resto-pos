@@ -21,6 +21,8 @@ Route::post('/transaksi/proses', 'TransaksiController@ProsesTransaksi');
 Route::post('/kategori/simpankategori','KategoriController@SimpanKategori');
 Route::post('/kategori/simpansatuan','KategoriController@SimpanSatuan');
 Route::post('/kategori/simpanrak','KategoriController@SimpanRak');
+Route::get('/inventory/index','KategoriController@index');
+Route::delete('/inventory/hapus','KategoriController@hapus');
 Route::resource('/produk','BarangController');
 Route::resource('/transaksi','TransaksiController');
 

@@ -25,12 +25,12 @@ Resto | Tambah Data
             <div class="row">
                 <ul class="breadcrumb">
                     <li><a href="{{ url('/home') }}">Dashboard</a></li>
-                    <li><a href="{{ route('produk.index') }}">Master Barang</a></li>
+                    <li><a href="{{ route('produk.index') }}">Master Produk</a></li>
                     <li class="active">Tambah Data</li>
                 </ul>
                 <div class="col-xs-6">
                     <div class="card-box table-responsive">
-                        <h4 class="m-t-0 header-title"><b>Master Barang</b></h4>
+                        <h4 class="m-t-0 header-title"><b>Master Produk</b></h4>
                         <div class="panel-body">
                           {!! Form::open(['url' => route('produk.store'),
                           'method' => 'post', 'class'=>'form-horizontal']) !!}

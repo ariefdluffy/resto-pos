@@ -34,7 +34,7 @@ Resto PoS
                         <div class="panel panel-default panel-border">
                         <div class="panel-content">
                             <div class="row">
-                                <div class="btn-group col-sm-12">
+                                <div class="form-group col-sm-12">
                                     <a href="{{ route('produk.create') }}" class="btn btn-primary waves-effect waves-light" data-overlaySpeed="100" data-overlayColor="#36404a">Tambah Data</a>
                                 </div>
                             </div>

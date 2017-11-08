@@ -17,7 +17,7 @@
 <div class="form-group{{ $errors->has('harga') ? ' has-error' : '' }}">
   {!! Form::label('harga', 'Harga Jual', ['class'=>'col-md-4 control-label']) !!}
   <div class="col-md-8">
-    {!! Form::text('harga', null, ['class'=>'form-control']) !!}
+    {!! Form::number('harga', null, ['class'=>'form-control', 'min' => '1000']) !!}
     {!! $errors->first('harga', '<p class="help-block">:message</p>') !!}
   </div>
 </div>
