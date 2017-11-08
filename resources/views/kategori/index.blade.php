@@ -26,11 +26,11 @@ Resto PoS
             <div class="row">
                 <ul class="breadcrumb">
                     <li><a href="{{ url('/home') }}">Dashboard</a></li>
-                    <li class="active">Produk</a></li>
+                    <li class="active">Kategori</a></li>
                 </ul>
                 <div class="col-sm-12">
                     <div class="card-box table-responsive">
-                        <h4 class="m-t-0 header-title"><b>Data Produk</b></h4>
+                        <h4 class="m-t-0 header-title"><b>Data Kategori</b></h4>
                         <div class="panel panel-default panel-border">
                         <div class="panel-content">
                             <div class="row">
@@ -62,7 +62,7 @@ Resto PoS
                                     <td>
                                         {!! Form::open(array('route' => array('produk.destroy', $items->id_barang), 'method' =>'DELETE')) !!}
                                             <a class="edit btn btn-sm btn-success" href="{{ route('produk.edit', $items->id_barang) }}" data-container="body" data-toggle="popover" data-content="Edit" data-placement="top"><i class="fa fa-edit"></i></a>
-                                            <a class="btn-sm btn-warning waves-effect waves-light" href="{{ route('produk.show', $items->id_barang) }}" data-container="body" data-toggle="popover" data-content="Detail" data-placement="top">Detail</a>
+                                            <a class="btn-sm btn-warning waves-effect waves-light" href="{{ route('produk.show', $items->id_perusahaan) }}" data-container="body" data-toggle="popover" data-content="Detail" data-placement="top">Detail</a>
                                             <a class="delete btn btn-sm btn-danger" href="javascript:;" onclick="return showAlert($(this).closest('form'));" rel="popover" data-container="body" 
                                             data-toggle="popover" data-content="Hapus" data-placement="top"><i class="fa fa-trash"></i></a>
                                         {!! Form::close() !!}

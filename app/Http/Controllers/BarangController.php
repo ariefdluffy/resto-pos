@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Form;
 use Illuminate\Http\Request;
 use App\Barang;
+use App\Kategori;
 use Validator;
+use DB;
+use App\Rak;
 
 class BarangController extends Controller
 {
@@ -16,9 +19,11 @@ class BarangController extends Controller
      */
     public function index()
     {
-        $barang = Barang::all();
-        // return $barang;
-        // print_r $barang;
+        $barang = DB::table('barangs')
+                    ->join('kategoris', 'kategoris.id_kategori','=','barangs.id_kategori')
+                    ->get();
+         //return $barang;
+        //print_r $barang;
         return view ('produk.index', compact('barang'));
     }
 
@@ -41,8 +46,11 @@ class BarangController extends Controller
     
         $kode_barang = 'BRG-' . sprintf('%04d', intval($number) + 1);
         $tampil = Form::getValueAttribute('kode_barang', $kode_barang);
-        
-        return view('produk.create', compact('tampil'));
+
+        $kategori = DB::table('kategoris')->get();
+        $rak = Rak::all(['id_rak', 'nama_rak']);
+        //return $rak;
+        return view('produk.create', compact('tampil','kategori','rak'));
     }
 
     /**
@@ -62,13 +70,13 @@ class BarangController extends Controller
             'id_satuan' => 'required',
         ]);
 
-        // $barang = Barang::create($request->all());
+        $barang = Barang::create($request->all());
         if ( $validation->fails() ) {
             // change below as required
             return \Redirect::back()->withInput()->withErrors( $validation->messages() );
         }
 
-        return redirect()->route('produk.index');
+        return redirect()->back();
     }
 
     /**

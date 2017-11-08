@@ -23,19 +23,27 @@
 </div>
 
 <div class="form-group{{ $errors->has('id_kategori') ? ' has-error' : '' }}">
-  {!! Form::label('id_kategori', 'Kategori Produk', ['class'=>'col-md-4 control-label']) !!}
-  <div class="col-md-8">
-    {!! Form::text('id_kategori', null, ['class'=>'form-control']) !!}
-    {!! $errors->first('id_kategori', '<p class="help-block">:message</p>') !!}
-  </div>
+    {!! Form::label('id_kategori', 'Nama Menu', ['class'=>'col-md-4 control-label']) !!}
+    <div class="col-md-8">
+        <select class="form-control select2" name="id_kategori">
+            @foreach($kategori as $kat)
+                <option name="id_kategori" value="{{ $kat->id_kategori }}"> {{ $kat->nama_kategori }}</option>
+            @endforeach
+        </select>
+        {!! $errors->first('id_kategori', '<p class="help-block">:message</p>') !!}
+    </div>
 </div>
 
 <div class="form-group{{ $errors->has('id_rak') ? ' has-error' : '' }}">
-  {!! Form::label('id_rak', 'Rak Produk', ['class'=>'col-md-4 control-label']) !!}
-  <div class="col-md-8">
-    {!! Form::text('id_rak', null, ['class'=>'form-control']) !!}
-    {!! $errors->first('id_rak', '<p class="help-block">:message</p>') !!}
-  </div>
+    {!! Form::label('id_rak', 'Nama Menu', ['class'=>'col-md-4 control-label']) !!}
+    <div class="col-md-8">
+        <select class="form-control select2" name="id_rak">
+            @foreach($rak as $skat)
+                <option name="id_rak" value="{{ $skat->id_rak }}"> {{ $skat->nama_rak }}</option>
+            @endforeach
+        </select>
+        {!! $errors->first('id_rak', '<p class="help-block">:message</p>') !!}
+    </div>
 </div>
 
 <div class="form-group{{ $errors->has('id_satuan') ? ' has-error' : '' }}">
@@ -62,17 +70,7 @@
   </div>
 </div>
 
-{{--  <div class="form-group{{ $errors->has('jenis_perusahaan') ? ' has-error' : '' }}">
-  {!! Form::label('jenis_perusahaan', 'Jenis Perusahaan', ['class'=>'col-md-4 control-label']) !!}
-  <div class="col-md-8">
-    {{ Form::select('jenis_perusahaan', [
-       'Perkayuan' => 'Perkayuan',
-       'Perkebunan' => 'Perkebunan',
-       'Pertambangan' => 'Pertambangan'], null,['class' => 'form-control']
-    ) }}
-    {!! $errors->first('jenis_perusahaan', '<p class="help-block">:message</p>') !!}
-  </div>
-</div>  --}}
+
 
 <div class="form-group">
   <div class="col-md-6 col-md-offset-4">

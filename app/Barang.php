@@ -11,4 +11,10 @@ class Barang extends Model
     protected $fillable =   [
         'id_barang','kode_barang','nama_barang','ket','harga','id_kategori','id_rak','id_satuan','qty'
     ];
+
+    public function Kategori()
+    {
+        return $this->hasMany('App\Kategori', 'id_kategori');
+    }
+    
 }
