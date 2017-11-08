@@ -19,6 +19,7 @@ Route::post('/transaksi/subtotal', 'TransaksiController@SimpanTransaksi');
 Route::put('/transaksi/{id}', 'TransaksiController@ProsesTransaksi');
 Route::post('/transaksi/proses', 'TransaksiController@ProsesTransaksi');
 Route::post('/kategori/simpankategori','KategoriController@SimpanKategori');
+Route::post('/kategori/simpansatuan','KategoriController@SimpanSatuan');
 Route::post('/kategori/simpanrak','KategoriController@SimpanRak');
 Route::resource('/produk','BarangController');
 Route::resource('/transaksi','TransaksiController');

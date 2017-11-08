@@ -49,8 +49,9 @@ class BarangController extends Controller
 
         $kategori = DB::table('kategoris')->get();
         $rak = Rak::all(['id_rak', 'nama_rak']);
+        $satuan = DB::table('satuans')->get();
         //return $rak;
-        return view('produk.create', compact('tampil','kategori','rak'));
+        return view('produk.create', compact('tampil','kategori','rak','satuan'));
     }
 
     /**

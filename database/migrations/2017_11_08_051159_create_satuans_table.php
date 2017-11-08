@@ -14,7 +14,8 @@ class CreateSatuansTable extends Migration
     public function up()
     {
         Schema::create('satuans', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id_satuan');
+            $table->string('nama_satuan');
             $table->timestamps();
         });
     }

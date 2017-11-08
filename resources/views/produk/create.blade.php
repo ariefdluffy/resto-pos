@@ -95,6 +95,34 @@ Resto | Tambah Data
                         </div>
                     </div>
                 </div>
+
+                <div class="col-xs-6">
+                    <div class="card-box table-responsive">
+                        <h4 class="m-t-0 header-title"><b>Data Satuan Produk</b></h4>
+                        <div class="panel-body">
+                          {!! Form::open(['url' => action('KategoriController@SimpanSatuan'),
+                          'method' => 'post', 'class'=>'form-horizontal']) !!}
+                            <div class="form-group{{ $errors->has('nama_satuan') ? ' has-error' : '' }}">
+                                {!! Form::label('nama_satuan', 'Nama Satuan', ['class'=>'col-md-4 control-label']) !!}
+                                <div class="col-md-8">
+                                    {!! Form::text('nama_satuan', null, ['class'=>'form-control']) !!}
+                                    {!! $errors->first('nama_satuan', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    {{--  {!! Form::submit('Simpan', ['class'=>'btn btn-primary']) !!}  --}}
+                                    <button type="submit" 
+                                    href="javascript:;" 
+                                    onclick="$.Notification.autoHideNotify('success', 'top right', 'Prosesing...','Data sedang diproses.')"
+                                    class="btn btn-embossed btn-primary m-r-0"><i class="fa fa-floppy-o"></i> Simpan</button>
+                                </div>
+                            </div>
+                          {!! Form::close() !!}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

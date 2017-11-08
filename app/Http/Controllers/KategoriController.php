@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Kategori;
 use App\Rak;
+use App\Satuan;
 use Illuminate\Http\Request;
 
 class KategoriController extends Controller
@@ -35,6 +36,16 @@ class KategoriController extends Controller
         $rak = new Rak();
         $input = $request->input();
         $rak->fill($input)->save();
+
+        return redirect()->back();
+    }
+
+    public function SimpanSatuan(Request $request)
+    {
+        //dd($request->all());
+        $satuan = new Satuan();
+        $input = $request->input();
+        $satuan->fill($input)->save();
 
         return redirect()->back();
     }

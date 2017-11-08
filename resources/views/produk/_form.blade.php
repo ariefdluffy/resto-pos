@@ -35,7 +35,7 @@
 </div>
 
 <div class="form-group{{ $errors->has('id_rak') ? ' has-error' : '' }}">
-    {!! Form::label('id_rak', 'Nama Menu', ['class'=>'col-md-4 control-label']) !!}
+    {!! Form::label('id_rak', 'Nama Rak Menu', ['class'=>'col-md-4 control-label']) !!}
     <div class="col-md-8">
         <select class="form-control select2" name="id_rak">
             @foreach($rak as $skat)
@@ -49,9 +49,12 @@
 <div class="form-group{{ $errors->has('id_satuan') ? ' has-error' : '' }}">
   {!! Form::label('id_satuan', 'Satuan Produk', ['class'=>'col-md-4 control-label']) !!}
   <div class="col-md-8">
-    {!! Form::text('id_satuan', null, ['class'=>'form-control']) !!}
-    {!! $errors->first('id_satuan', '<p class="help-block">:message</p>') !!}
-  </div>
+    <select class="form-control select2" name="id_satuan">
+        @foreach($satuan as $pcs)
+            <option name="id_satuan" value="{{ $pcs->id_satuan }}"> {{ $pcs->nama_satuan }}</option>
+        @endforeach
+    </select>
+  </div>  
 </div>
 
 <div class="form-group{{ $errors->has('qty') ? ' has-error' : '' }}">
