@@ -133,6 +133,14 @@
                             </ul>
                         </li>
 
+                        <li class="text-muted menu-title">Laporan</li>
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-location-pin"></i><span> Laporan Transaksi </span> <span class="menu-arrow"></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="#"> Laporan Transaksi</a></li>
+                            </ul>
+                        </li>
+
                         
 
                         </ul>
