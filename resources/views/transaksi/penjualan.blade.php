@@ -33,6 +33,7 @@ Resto PoS | Transaksi
                         <div class="panel-body">
                         {!! Form::open(['url' => action('TransaksiController@SimpanTransaksi'), 'method' => 'post', 'class'=>'form-horizontal']) !!}
                             <div class="col-sm-6">
+                            <!-- {!! Form::text('invoice', $tampil, ['class'=>'col-md-4 control-label']) !!} -->
                                     <div class="form-group">
                                     {!! Form::label('invoice', 'Invoice', ['class'=>'col-md-4 control-label']) !!}
                                         <div class="col-md-6">
@@ -44,7 +45,7 @@ Resto PoS | Transaksi
                                     <div class="form-group">
                                     {!! Form::label('id_karyawan', 'Nama Karyawan', ['class'=>'col-md-4 control-label']) !!}
                                         <div class="col-md-6">
-                                            {!! Form::text('id_karyawan', 'Arief', ['class'=>'form-control', 'readonly' => '']) !!}
+                                            {!! Form::text('id_karyawan', '2', ['class'=>'form-control', 'readonly' => '']) !!}
                                             {!! $errors->first('id_karyawan', '<p class="help-block">:message</p>') !!}
                                         </div>
                                     </div>
@@ -106,8 +107,8 @@ Resto PoS | Transaksi
                                     </label>
                                     <div class="col-md-4">
                                         <div class="pull-left">
-                                            {!! Form::text('total', null, ['class'=>'form-control autonumber', 
-                                            'id' => 'total', 'readonly' => '', 'data-a-sign' => 'Rp. ']) !!}
+                                            {!! Form::number('total', null, ['class'=>'form-control', 
+                                            'id' => 'total', 'readonly' => '']) !!}
                                         </div>
                                     </div>
                                 </div>
@@ -131,6 +132,8 @@ Resto PoS | Transaksi
                     </div>
                 </div>
             </div>
+
+            {!! Form::open(['url' => action('TransaksiController@SimpanTransaksi'), 'method' => 'post', 'class'=>'form-horizontal']) !!}
             
             <div class="row">
                 <div class="col-sm-12">
@@ -142,7 +145,7 @@ Resto PoS | Transaksi
                             <div class="panel-body">
                                 <div class="row" id="row-order">
                                     <div class="panel-content pagination2">
-                                        <table id="tbl-order" class="table table-hover table-bordered" width="100%">
+                                        <table id="tbl-order" class="table table-hover table-dynamic" width="100%">
                                             <col style="width:3%">
                                             <thead>
                                             <tr>
@@ -168,9 +171,8 @@ Resto PoS | Transaksi
                                                         echo "<td>$jumlah</td>";
                                                         ?>
                                                         <td>
-                                                            {{ Form::open(['method' => 'DELETE', 'route' => ['transaksi.destroy', $pen->id_transaksi_detail]]) }}
-                                                                <a class="delete btn btn-sm btn-danger" href="javascript:;" onclick="return showAlert($(this).closest('form'));" rel="popover" data-container="body" 
-                                                                data-toggle="popover" data-content="Hapus" data-placement="top"><i class="fa fa-trash"></i></a>
+                                                            {{ Form::open(['method' => 'DELETE', 'route' => ['transaksi.destroy', $pen->id_transaksi]]) }}
+                                                                {{ Form::submit('Delete', ['class' => 'btn btn-sm btn-danger', 'onsubmit' => 'return ConfirmDelete()']) }}
                                                             {{ Form::close() }}
                                                         </td>
                                                     </tr>
@@ -184,8 +186,7 @@ Resto PoS | Transaksi
                     </div>
                 </div>
             </div>
-            
-            {!! Form::open(['url' => action('TransaksiController@ProsesTransaksi'), 'method' => 'put', 'class'=>'form-horizontal']) !!}
+
             <div class="row">
                 <div class="col-sm-12">
                    <div class="panel panel-border panel-custom">
@@ -207,51 +208,39 @@ Resto PoS | Transaksi
                                     </div>
                                 </div>
                             </div>  --}}
-                            {!! Form::hidden('invoice', $tampil, ['class'=>'col-md-4 control-label']) !!}
-                            {!! Form::hidden('status', 'selesai', ['class'=>'col-md-4 control-label']) !!}
-                            {{--  {!! Form::hidden('id_transaksi', $showTable[0]->id_transaksi , ['class'=>'col-md-4 control-label']) !!}  --}}
+
                             <div class="col-sm-4">
-                                <div class="form-group{{ $errors->has('jumlah_bayar') ? ' has-error' : '' }}">
-                                {!! Form::label('jumlah_bayar', 'Total Harga', ['class'=>'col-md-4 control-label']) !!}
-                                    <div class="col-md-6">
-                                    
-                                        {!! Form::number('jumlah_bayar', $total_bayar, ['class'=>'form-control', 'readonly' => '',
-                                        'id' => 'jumlah_bayar', 'name' => 'jumlah_bayar', 'onkeyup' => 'kembalian();']) !!}
-                                        {!! $errors->first('jumlah_bayar', '<p class="help-block">:message</p>') !!}
-                                  
+                                <div class="form-group{{ $errors->has('harga_jual') ? ' has-error' : '' }}">
+                                {!! Form::label('harga_jual', 'Harga Jual', ['class'=>'col-md-4 control-label']) !!}
+                                    <div class="col-md-4">
+                                        {!! Form::number('harga_jual', $barang[0]->harga, ['class'=>'form-control',
+                                        'id' => 'harga_jual','name' => 'harga_jual', 'readonly' => '', 'onkeyup' => 'sum();']) !!}
+                                        {!! $errors->first('harga_jual', '<p class="help-block">:message</p>') !!}
                                     </div>
                                 </div>
 
-                                <div class="form-group{{ $errors->has('jumlah_uang') ? ' has-error' : '' }}">
-                                {!! Form::label('jumlah_uang', 'Jumlah Uang', ['class'=>'col-md-4 control-label']) !!}
-                                    <div class="col-md-6">
-                                        {!! Form::number('jumlah_uang', null, ['class'=>'form-control','name' => 'jumlah_uang',
-                                        'id' => 'jumlah_uang', 'onkeyup' => 'kembalian();', 'min' => '0']) !!}
-                                        {!! $errors->first('jumlah_uang', '<p class="help-block">:message</p>') !!}
+                                <div class="form-group{{ $errors->has('qty') ? ' has-error' : '' }}">
+                                {!! Form::label('qty', 'Jumlah Beli', ['class'=>'col-md-4 control-label']) !!}
+                                    <div class="col-md-4">
+                                        {!! Form::number('qty', null, ['class'=>'form-control', 'min' => '1',
+                                        'max' => '100', 'name' => 'qty', 'id'=>'qty', 'autofocus' => '' ,'onkeyup' => 'sum();']) !!}
+                                        {!! $errors->first('qty', '<p class="help-block">:message</p>') !!}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Total Harga
+                                    </label>
+                                    <div class="col-md-4">
+                                        <div class="pull-left">
+                                            {!! Form::number('total', null, ['class'=>'form-control', 
+                                            'id' => 'total', 'readonly' => '']) !!}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-sm-4">
-                                <div class="form-group{{ $errors->has('kembali') ? ' has-error' : '' }}">
-                                {!! Form::label('sisa', 'Kembalian', ['class'=>'col-md-6 control-label']) !!}
-                                    <div class="col-md-6">
-                                        {!! Form::number('sisa', null, ['class'=>'form-control', 'name' => 'sisa',
-                                            'id' => 'sisa', 'readonly' => '', 'required' => '']) !!}
-                                    </div>
-                                </div>
-                                <label class="col-sm-6 control-label">&nbsp;
-                                </label>
-                                <div class="col-sm-6">
-                                    <div class="pull-left">
-                                        <button type="submit" 
-                                        href="javascript:;" 
-                                        onclick="$.Notification.autoHideNotify('success', 'top right', 'Prosesing...','Data masuk invoice.')"
-                                        class="btn btn-embossed btn-warning m-r-0"><i class="fa fa-floppy-o"></i> Proses Transaksi</button>
-                                    </div>
-                                </div>
-                           
-                            </div>
+                            
                         </div>
                    </div>
                 </div>
@@ -302,11 +291,8 @@ Resto PoS | Transaksi
 <script src="{{ asset('assets/plugins/bootstrap-sweetalert/sweet-alert.min.js') }}"></script>
 <script src="{{ asset('assets/pages/jquery.sweet-alert.init.js') }}"></script>
 
-{{--  autonumber  --}}
-{{--  <script src="{{ asset('assets/plugins/bootstrap-inputmask/bootstrap-inputmask.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/plugins/autoNumeric/autoNumeric.js') }}" type="text/javascript"></script>  --}}
-
 <script>
+
 function initDataTable() {
   $("#tbl-order").DataTable();
 }
@@ -321,36 +307,12 @@ function sum() {
 }
 
 function kembalian() {
-    var txtFirstNumberValue = document.getElementById('jumlah_bayar').value;
+    var txtFirstNumberValue = document.getElementById('total_harga').value;
     var txtSecondNumberValue = document.getElementById('jumlah_uang').value;
     var result = parseInt(txtSecondNumberValue) - parseInt(txtFirstNumberValue);
     if (!isNaN(result)) {
-        document.getElementById('sisa').value = result;
+        document.getElementById('kembalian').value = result;
     }
 }
-
-function showAlert(form) {
-    swal({
-    title: "Apakah anda yakin?",
-    text: "Menghapus data yang anda pilih!",
-    type: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#DD6B55",
-    confirmButtonText: "Ya, hapus!",
-    cancelButtonText: "Batal",
-    closeOnConfirm: false
-  },
-    function(){
-        form.submit();
-    });
-};
 </script>
-
-{{--  <script type="text/javascript">
-    jQuery(function($) {
-        $('.autonumber').autoNumeric('init');    
-    });
-</script>  --}}
-
-
 @endsection
