@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Barang;
+use App\Kategori;
 use App\User;
 use Auth;
 use DB;
@@ -28,7 +29,8 @@ class HomeController extends Controller
     public function index()
     {
         $jumlah_produk = Barang::count();
+        $jumlah_kat = Kategori::count();
         
-        return view('dashboard.home', compact('jumlah_produk'));
+        return view('dashboard.home', compact('jumlah_produk', 'jumlah_kat'));
     }
 }

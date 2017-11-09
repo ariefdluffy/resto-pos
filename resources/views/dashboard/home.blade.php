@@ -37,8 +37,8 @@ Resto | PoS
                             
                             <div class="col-lg-3 col-sm-6">
                                 <div class="widget-inline-box text-center">
-                                    {{--  <h3><i class="text-custom md md-attach-money"></i> <b data-plugin="counterup">{{ $jumlah_laporan }}</b></h3>  --}}
-                                    <h4 class="text-muted">Laporan Masuk</h4>
+                                    <h3><i class="text-custom md md-attach-money"></i> <b data-plugin="counterup">{{ $jumlah_kat }}</b></h3>
+                                    <h4 class="text-muted">Kategori Produk</h4>
                                 </div>
                             </div>
                             
